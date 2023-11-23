@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// DB::listen(function ($event) {
+//     dump($event->sql);
+// });
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,3 +24,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/posts', [App\Http\Controllers\PostController::class, 'index'])->name('post.index');
+
+Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+
+
