@@ -29,7 +29,7 @@
                         </td>
                         <td>
                             <a href="{{ route('post.show',['post'=>$post->id]) }}">Papar</a>
-
+                            @if (Auth::user()->id == $post->user_id)
                             {!! Form::open(['method' => 'DELETE', 'route' => ['post.delete',$post->id], 'class'=>'formDelete']) !!}
 
                                 <div class="btn-group pull-right">
@@ -37,6 +37,7 @@
                                 </div>
 
                             {!! Form::close() !!}
+                            @endif
                         </td>
                     </tr>
                     @endforeach
