@@ -32,7 +32,7 @@
                             {!! Form::open(['method' => 'DELETE', 'route' => ['post.delete',$post->id]]) !!}
 
                                 <div class="btn-group pull-right">
-                                    {!! Form::submit("Delete", ['class' => 'btn btn-sm btn-danger']) !!}
+                                    {!! Form::submit("Delete", ['class' => 'btn btn-sm btn-danger', 'onClick'=>'return confirm("Are you sure you want to remove this post?")']) !!}
                                 </div>
 
                             {!! Form::close() !!}
