@@ -33,6 +33,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
 
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
+
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('post.update');
+
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
     Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
