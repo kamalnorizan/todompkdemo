@@ -29,10 +29,10 @@
                         <td>
                             <a href="{{ route('post.show',['post'=>$post->id]) }}">Papar</a>
 
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['post.delete',$post->id]]) !!}
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['post.delete',$post->id], 'class'=>'formDelete']) !!}
 
                                 <div class="btn-group pull-right">
-                                    {!! Form::submit("Delete", ['class' => 'btn btn-sm btn-danger', 'onClick'=>'return confirm("Are you sure you want to remove this post?")']) !!}
+                                    {!! Form::button("Delete", ['class' => 'btn btn-sm btn-danger btn-delete']) !!}
                                 </div>
 
                             {!! Form::close() !!}
@@ -50,6 +50,38 @@
 
 @section('script')
     <script>
-        
+
+        $('.btn-delete').on('click', function (e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+
+            console.log(form);
+
+            swal("Are you sure you want to delete this post?",{
+                dangerMode: true,
+                icon:'error',
+                buttons: {
+                    cancel: {
+                        text: "Cancel",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "Ok",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: true
+                    }
+                }
+            }).then((value)={
+                console.log(value);
+                if(value==true){
+                    $(form).submit();
+                }
+            });
+        });
     </script>
 @endsection
