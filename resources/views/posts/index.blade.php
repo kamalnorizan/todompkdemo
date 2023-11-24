@@ -32,6 +32,9 @@
 
                             @if (Auth::user()->id == $post->user_id)
 
+
+                            <a href="{{ route('post.edit',['post'=>$post->id]) }}">Kemaskini</a>
+
                             {!! Form::open(['method' => 'DELETE', 'route' => ['post.delete',$post->id], 'class'=>'formDelete']) !!}
 
                                 <div class="btn-group pull-right">
@@ -39,7 +42,7 @@
                                 </div>
 
                             {!! Form::close() !!}
-                            
+
                             @endif
                         </td>
                     </tr>
