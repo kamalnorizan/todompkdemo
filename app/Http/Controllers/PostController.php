@@ -47,6 +47,11 @@ class PostController extends Controller
 
     function delete(Post $post) {
         $post->delete();
+
+        flash('Post anda telah berjaya dipadam')->success()->important();
+        //success - hijau
+        //error - merah
+        //warning - kuning
         return redirect()->route('post.index');
     }
 
