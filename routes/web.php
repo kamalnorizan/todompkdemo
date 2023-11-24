@@ -24,12 +24,17 @@ Auth::routes();
 
 Route::get('/home/{test}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/posts', [PostController::class, 'index'])->name('post.index');
 
-Route::get('/posts/create', [PostController::class, 'create'])->name('post.create')->middleware('auth');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
 
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
+    Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
 
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-Route::post('comment', [CommentController::class, 'store'])->name('comment.store')->middleware('auth');
+    Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
+
+    Route::delete('posts/{post}', [PostController::class, 'delete'])->name('post.delete');
+});
+

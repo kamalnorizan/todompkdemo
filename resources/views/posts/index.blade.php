@@ -28,6 +28,14 @@
                         </td>
                         <td>
                             <a href="{{ route('post.show',['post'=>$post->id]) }}">Papar</a>
+
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['post.delete',$post->id]]) !!}
+
+                                <div class="btn-group pull-right">
+                                    {!! Form::submit("Delete", ['class' => 'btn btn-sm btn-danger']) !!}
+                                </div>
+
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                     @endforeach
