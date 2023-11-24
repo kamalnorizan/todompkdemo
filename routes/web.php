@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +14,7 @@ use App\Http\Controllers\PostController;
 |
 */
 
-// DB::listen(function ($event) {
-//     dump($event->sql);
-// });
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,14 +22,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home/{test}', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/posts', [PostController::class, 'index'])->name('post.index');
 
-Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
+Route::get('/posts/create', [PostController::class, 'create'])->name('post.create')->middleware('auth');
 
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
 
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
 
-
+Route::post('comment', [CommentController::class, 'store'])->name('comment.store')->middleware('auth');

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use Crypt;
+use Auth;
 class PostController extends Controller
 {
     function index() {
         // $posts = Post::all(); // SELECT * FROM posts
 
-        $posts = Post::paginate(15);
+        $posts = Post::latest()->paginate(15);
 
         // dd($posts);
         return view('posts.index', compact('posts'));
@@ -25,4 +25,25 @@ class PostController extends Controller
     function create() {
         return view('posts.create');
     }
+
+    function store(Request $request) {
+        $request->validate([
+            'title'=>'required|min:10',
+            'content'=>'required'
+        ],[
+           'title.required'=>'Sila isi ruangan tajuk',
+           'title.min'=>'Tajuk mestilah sekurang-kurangnya 10 aksara',
+            'content.required'=>'Sila isi ruangan kandungan'
+        ]);
+
+        $post = new Post;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->user_id = Auth::user()->id;
+        $post->save();
+
+        return redirect()->route('post.index');
+    }
+
+
 }
