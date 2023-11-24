@@ -76,9 +76,8 @@
                         closeModal: true
                     }
                 }
-            }).then((value)={
-                console.log(value);
-                if(value==true){
+            }).then((value)=>{
+                if(value){
                     $(form).submit();
                 }
             });
