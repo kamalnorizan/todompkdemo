@@ -58,4 +58,23 @@ class PostController extends Controller
     function edit(Post $post){
         return view('posts.create', compact('post'));
     }
+
+    function update(Request $request, Post $post) {
+        $request->validate([
+            'title'=>'required|min:10',
+            'content'=>'required'
+        ],[
+           'title.required'=>'Sila isi ruangan tajuk',
+           'title.min'=>'Tajuk mestilah sekurang-kurangnya 10 aksara',
+            'content.required'=>'Sila isi ruangan kandungan'
+        ]);
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->user_id = Auth::user()->id;
+        $post->save();
+
+        flash('Updated successfully')->success()->important();
+        return redirect()->route('post.index');
+    }
 }
